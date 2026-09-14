@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+  <Identity Name="9b030a5e-ff31-4fd2-a716-845352405b72" Publisher="CN=Lakony Emmanuel" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="9b030a5e-ff31-4fd2-a716-845352405b72" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>Offline Student Management System</DisplayName>
+    <PublisherDisplayName>Lakony Emmanuel</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="OfflineStudentManagementSystem.App">
+      <uap:VisualElements
+        DisplayName="Offline Student Management System"
+        Description="Offline student academic information and services"
+        BackgroundColor="#123A63"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#123A63" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+</Package>
+

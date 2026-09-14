@@ -1,0 +1,218 @@
+<Page
+    x:Class="OfflineStudentManagementSystem.OnCanvasPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:OfflineStudentManagementSystem.Models"
+    Background="{StaticResource AppBackgroundBrush}">
+
+    <Canvas x:Name="OnCanvas" SizeChanged="OnCanvas_SizeChanged">
+        <Grid x:Name="WorkArea" Background="{StaticResource AppBackgroundBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <CommandBar Grid.Row="0" Background="{StaticResource PrimaryBrush}" IsOpen="False">
+                <CommandBar.Content>
+                    <TextBlock Margin="18,0"
+                               VerticalAlignment="Center"
+                               Text="Offline Student Management System"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Foreground="White" />
+                </CommandBar.Content>
+                <AppBarButton Label="Logout" Icon="Contact" Click="LogoutButton_Click" />
+            </CommandBar>
+
+            <Hub x:Name="StudentHub" Grid.Row="1" Header="Student Hub">
+                <HubSection Header="Student Profile" Width="430">
+                    <DataTemplate>
+                        <Border Padding="24" Background="White" CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="160" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Student ID" FontWeight="SemiBold" />
+                                <TextBlock Grid.Column="1" Text="{Binding StudentId}" />
+                                <TextBlock Grid.Row="1" Margin="0,14,0,0" Text="Student Name" FontWeight="SemiBold" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,14,0,0" Text="{Binding StudentName}" />
+                                <TextBlock Grid.Row="2" Margin="0,14,0,0" Text="Department" FontWeight="SemiBold" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,14,0,0" Text="{Binding Department}" TextWrapping="Wrap" />
+                                <TextBlock Grid.Row="3" Margin="0,14,0,0" Text="Year of Study" FontWeight="SemiBold" />
+                                <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,14,0,0" Text="{Binding YearOfStudy}" />
+                                <TextBlock Grid.Row="4" Margin="0,14,0,0" Text="Registration Status" FontWeight="SemiBold" />
+                                <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,14,0,0" Text="{Binding RegistrationStatus}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </HubSection>
+
+                <HubSection Header="Registered Modules" Width="900">
+                    <DataTemplate>
+                        <ListView ItemsSource="{Binding Modules}">
+                            <ListView.Header>
+                                <Grid Padding="12" Background="{StaticResource PrimaryBrush}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="130" />
+                                        <ColumnDefinition Width="320" />
+                                        <ColumnDefinition Width="110" />
+                                        <ColumnDefinition Width="220" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Module Code" Foreground="White" FontWeight="SemiBold" />
+                                    <TextBlock Grid.Column="1" Text="Module Name" Foreground="White" FontWeight="SemiBold" />
+                                    <TextBlock Grid.Column="2" Text="Credit Units" Foreground="White" FontWeight="SemiBold" />
+                                    <TextBlock Grid.Column="3" Text="Lecturer" Foreground="White" FontWeight="SemiBold" />
+                                </Grid>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="models:ModuleResult">
+                                    <Grid Padding="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="130" />
+                                            <ColumnDefinition Width="320" />
+                                            <ColumnDefinition Width="110" />
+                                            <ColumnDefinition Width="220" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{x:Bind ModuleCode}" />
+                                        <TextBlock Grid.Column="1" Text="{x:Bind ModuleName}" TextWrapping="Wrap" />
+                                        <TextBlock Grid.Column="2" Text="{x:Bind CreditUnits}" />
+                                        <TextBlock Grid.Column="3" Text="{x:Bind Lecturer}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </DataTemplate>
+                </HubSection>
+
+                <HubSection Header="Academic Results" Width="1020">
+                    <DataTemplate>
+                        <Pivot>
+                            <PivotItem Header="Modules">
+                                <ListView ItemsSource="{Binding Modules}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:ModuleResult">
+                                            <StackPanel Margin="8,5">
+                                                <TextBlock Text="{x:Bind ModuleName}" FontWeight="SemiBold" />
+                                                <TextBlock Text="{x:Bind ModuleCode}" Foreground="DimGray" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </PivotItem>
+                            <PivotItem Header="Results">
+                                <ListView ItemsSource="{Binding Modules}">
+                                    <ListView.Header>
+                                        <Grid Padding="10" Background="{StaticResource PrimaryBrush}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="340" />
+                                                <ColumnDefinition Width="125" />
+                                                <ColumnDefinition Width="140" />
+                                                <ColumnDefinition Width="110" />
+                                                <ColumnDefinition Width="150" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Module" Foreground="White" FontWeight="SemiBold" />
+                                            <TextBlock Grid.Column="1" Text="Coursework" Foreground="White" FontWeight="SemiBold" />
+                                            <TextBlock Grid.Column="2" Text="Examination" Foreground="White" FontWeight="SemiBold" />
+                                            <TextBlock Grid.Column="3" Text="Overall" Foreground="White" FontWeight="SemiBold" />
+                                            <TextBlock Grid.Column="4" Text="Grade Status" Foreground="White" FontWeight="SemiBold" />
+                                        </Grid>
+                                    </ListView.Header>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:ModuleResult">
+                                            <Grid Padding="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="340" />
+                                                    <ColumnDefinition Width="125" />
+                                                    <ColumnDefinition Width="140" />
+                                                    <ColumnDefinition Width="110" />
+                                                    <ColumnDefinition Width="150" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{x:Bind ModuleName}" TextWrapping="Wrap" />
+                                                <TextBlock Grid.Column="1" Text="{x:Bind CourseworkMark}" />
+                                                <TextBlock Grid.Column="2" Text="{x:Bind ExaminationMark}" />
+                                                <TextBlock Grid.Column="3" Text="{x:Bind OverallMark}" />
+                                                <TextBlock Grid.Column="4" Text="{x:Bind GradeStatus}" FontWeight="SemiBold" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </PivotItem>
+                        </Pivot>
+                    </DataTemplate>
+                </HubSection>
+
+                <HubSection Header="Fees" Width="500">
+                    <DataTemplate>
+                        <Border Padding="24" Background="White" CornerRadius="8">
+                            <StackPanel>
+                                <TextBlock Text="Total Fees" />
+                                <TextBlock Margin="0,4,0,18" Text="{Binding TotalFees}" FontSize="24" FontWeight="SemiBold" />
+                                <TextBlock Text="Amount Already Paid" />
+                                <TextBlock Margin="0,4,0,18" Text="{Binding AmountAlreadyPaid}" FontSize="24" FontWeight="SemiBold" />
+                                <TextBlock Text="Outstanding Balance" />
+                                <TextBlock Margin="0,4,0,18" Text="{Binding OutstandingBalance}" FontSize="24" FontWeight="SemiBold" Foreground="DarkRed" />
+                                <TextBlock Text="New Payment" />
+                                <TextBox x:Name="NewPaymentTextBox"
+                                         Margin="0,6,0,10"
+                                         InputScope="Number"
+                                         PlaceholderText="Enter payment amount" />
+                                <TextBlock x:Name="FeeErrorTextBlock" Margin="0,0,0,10" Foreground="DarkRed" TextWrapping="Wrap" />
+                                <Button Content="Calculate Payment"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{StaticResource AccentBrush}"
+                                        Foreground="White"
+                                        Click="CalculatePaymentButton_Click" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </HubSection>
+
+                <HubSection Header="Student Services" Width="650">
+                    <DataTemplate>
+                        <Border Padding="24" Background="White" CornerRadius="8">
+                            <StackPanel>
+                                <TextBlock Text="Service" />
+                                <ComboBox x:Name="ServiceComboBox"
+                                          Margin="0,6,0,16"
+                                          HorizontalAlignment="Stretch"
+                                          PlaceholderText="Select a service">
+                                    <ComboBoxItem Content="Transcript Request" />
+                                    <ComboBoxItem Content="Course Registration" />
+                                    <ComboBoxItem Content="Fee Query" />
+                                    <ComboBoxItem Content="Academic Appeal" />
+                                    <ComboBoxItem Content="Change of Programme" />
+                                </ComboBox>
+                                <TextBlock Text="Request Description" />
+                                <TextBox x:Name="RequestDescriptionTextBox"
+                                         Margin="0,6,0,16"
+                                         Height="110"
+                                         AcceptsReturn="True"
+                                         TextWrapping="Wrap"
+                                         PlaceholderText="Describe your request" />
+                                <TextBlock Text="Contact/Phone Number" />
+                                <TextBox x:Name="ContactTextBox"
+                                         Margin="0,6,0,10"
+                                         InputScope="TelephoneNumber"
+                                         PlaceholderText="Enter phone number" />
+                                <TextBlock x:Name="ServiceErrorTextBlock" Margin="0,0,0,10" Foreground="DarkRed" TextWrapping="Wrap" />
+                                <Button Content="Submit Request"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{StaticResource AccentBrush}"
+                                        Foreground="White"
+                                        Click="SubmitRequestButton_Click" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </HubSection>
+            </Hub>
+        </Grid>
+    </Canvas>
+</Page>
