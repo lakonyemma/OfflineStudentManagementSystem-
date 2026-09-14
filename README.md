@@ -16,7 +16,7 @@ Login → OnCanvas → Student Hub → Academic Pivot, Fees, and Student Service
 
 ## Run in Visual Studio
 
-1. Open `OfflineStudentManagementSystem.sln` in Visual Studio 2022 on Windows.
+1. Open `OfflineStudentManagementSystem.sln` in Visual Studio 2026 on Windows.
 2. Install the Universal Windows Platform development workload and Windows 10 SDK 19041 if Visual Studio requests them.
 3. Select x86 or x64 and Local Machine.
 4. Build and run the solution.
